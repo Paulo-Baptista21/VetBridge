@@ -22,12 +22,13 @@ And returns:
 ## Technologies
 
 - Python
+- SQL
 
 ## Future Modules
 
-- Fluid therapy calculator
-- Pharmacological library
-- Clinical decision-support tools
+- Structured search system
+- Expanded pharmacological database
+- Faster navigation between clinical signs and drug references
 
 ## Author
 
