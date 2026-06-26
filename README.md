@@ -30,6 +30,10 @@ And returns:
 - Expanded pharmacological database
 - Faster navigation between clinical signs and drug references
 
+## Disclaimer
+
+- The software is for informational/support purposes only and is not a substitute for professional veterinary medical judgement. Licenses do not replace product liability disclaimers.
+
 ## Author
 
 Paulo Henrique Retamero Baptista
