@@ -1,39 +1,100 @@
 # VetBridge
 
-Project focused on developing tools to support veterinary clinical routines.
+VetBridge is an educational software project focused on organizing veterinary pharmacological information and providing fast access to medication references through clinical signs.
+
+The project was created to reduce the time required to locate veterinary drug information dispersed across package inserts and commercial references, serving as a consultation support tool for veterinary students and recently graduated professionals.
+
+---
 
 ## Current Features
 
-- Medication dosage calculator
+* Medication dosage calculator
+* Project documentation
+* Requirements specification
+* Software architecture planning
 
-## How It Works
+---
 
-The calculator receives:
+## Planned Workflow
 
-- Patient weight (kg)
-- Recommended dosage (mg/kg)
-- Drug concentration (mg/ml)
+Clinical Sign
 
-And returns:
+↓
 
-- Total dose (mg)
-- Administration volume (ml)
+Associated Active Ingredients
 
-## Technologies
+↓
 
-- Python
-- SQL
+Commercial Presentations
 
-## Future Modules
+↓
 
-- Structured search system
-- Expanded pharmacological database
-- Faster navigation between clinical signs and drug references
+Pharmacological Information
 
-## Disclaimer
+* Species
+* Dosage
+* Administration Route
+* Interval
+* Contraindications
 
-- The software is for informational/support purposes only and is not a substitute for professional veterinary medical judgement. Licenses do not replace product liability disclaimers.
+↓
+
+Dosage Calculator
+
+---
+
+## Planned Technologies
+
+* Python
+* SQL
+* Relational Database
+* Git & GitHub
+
+---
+
+## Current Development Stage
+
+The project is currently in the requirements analysis and database modeling phase.
+
+Upcoming milestones include:
+
+* Conceptual database model (ERD)
+* Logical database model
+* SQL implementation
+* Search engine development
+* Pharmacological database construction
+
+---
+
+## Project Principles
+
+VetBridge is designed exclusively as an informational support tool.
+
+The software:
+
+* does not perform diagnoses;
+* does not recommend treatment protocols;
+* does not replace professional veterinary judgment.
+
+Clinical decisions remain entirely under the responsibility of the attending veterinarian.
+
+---
+
+## Repository Structure
+
+```text
+docs/
+    Requirements
+    Database Modeling
+    Architecture Decisions
+
+src/
+    Application source code
+```
+
+---
 
 ## Author
 
 Paulo Henrique Retamero Baptista
+
