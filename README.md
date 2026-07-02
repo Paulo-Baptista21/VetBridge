@@ -66,20 +66,6 @@ Upcoming milestones include:
 
 ---
 
-## Project Principles
-
-VetBridge is designed exclusively as an informational support tool.
-
-The software:
-
-* does not perform diagnoses;
-* does not recommend treatment protocols;
-* does not replace professional veterinary judgment.
-
-Clinical decisions remain entirely under the responsibility of the attending veterinarian.
-
----
-
 ## Repository Structure
 
 ```text
@@ -92,7 +78,13 @@ src/
     Application source code
 ```
 
----
+## Educational Purpose
+
+VetBridge is an educational project developed to practice software development, database modeling and system design concepts.
+
+The project aims to organize veterinary pharmacological information and provide dosage calculation tools as a learning exercise.
+
+This software is not intended to replace professional veterinary judgment, provide diagnoses or recommend treatment protocols.
 
 ## Author
 
