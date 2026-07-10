@@ -58,14 +58,14 @@ Target users:
 
 # 4. Functional Requirements
 
-| Code | Requirement                                                                                                    |
-| ---- | -------------------------------------------------------------------------------------------------------------- |
-| FR01 | The system shall allow users to search for a single input.                                                     |
-| FR02 | The system shall display entities associated with the searched input.                                          |
-| FR03 | The system shall allow navigation between associated entities.                                                 |
-| FR04 | The system shall display dosage information for each commercial formulation according to the target species.   |
-| FR05 | The system shall calculate medication dosage based on patient weight, prescribed dose, and drug concentration. |
-| FR06 | The system shall allow users to return to the main menu after completing a consultation.                       |
+| Code | Requirement                                                                                                               |
+| ---- | --------------------------------------------------------------------------------------------------------------------------|
+| FR01 | The system shall allow users to search for a single input.                                                                |
+| FR02 | The system shall display entities associated with the searched input.                                                     |
+| FR03 | The system shall allow navigation between associated entities.                                                            |
+| FR04 | The system shall display pharmacological information for each commercial formulation according to the selected species.   |
+| FR05 | The system shall calculate medication dosage based on patient weight, prescribed dose, and drug concentration.            |
+| FR06 | The system shall allow users to return to the main menu after completing a consultation.                                  |
 
 ---
 
