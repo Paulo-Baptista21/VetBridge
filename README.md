@@ -1,161 +1,139 @@
 # VetBridge
 
-VetBridge is an educational software engineering project created to organize veterinary pharmacological information and provide fast, structured access to official medication references through clinical signs.
+VetBridge is an educational software engineering project focused on organizing veterinary pharmacological information through a relational database and an Object-Oriented application architecture.
 
-Rather than serving as a clinical decision-support system, VetBridge is designed as a learning project to consolidate software development, database modeling and system design concepts throughout an undergraduate degree in Systems Analysis and Development.
+Instead of acting as a clinical decision system, VetBridge aims to centralize medication references and provide structured access to veterinary pharmacological data, allowing searches through multiple entry points such as clinical signs, active ingredients, commercial products and manufacturers.
 
----
-
-## Current Development
-
-### ✔ Project Definition
-
-- Functional requirements
-- Non-functional requirements
-- Business rules
-- Project scope
-- Educational disclaimer
-
-### ✔ Software Analysis
-
-- User workflow definition
-- Consultation flow
-- Entity identification
-- Relationship analysis
-- Attribute refinement
-- Conceptual documentation
-
-### ✔ Documentation
-
-- Complete project documentation using Obsidian
-- Technical project organization
-- GitHub documentation
-- Software planning roadmap
+The project is being developed primarily as a Software Engineering and Database Modeling portfolio project.
 
 ---
 
-## Planned User Workflow
+# Current Development Stage
+
+The project has completed its conceptual modeling phase and is currently transitioning into software implementation.
+
+Completed milestones:
+
+* Software Requirements Specification
+* Functional Requirements
+* Non-Functional Requirements
+* Entity identification
+* Entity attributes definition
+* Relationship modeling
+* Complete Entity-Relationship Diagram (ERD)
+* Initial Object-Oriented architecture
+* First Python classes
+* Initial relationship methods
+
+Current focus:
+
+* Expansion of Python domain model
+* Logical database model
+* SQL implementation
+* Database population
+* Search engine implementation
+
+---
+
+# Core Architecture
+
+Current domain entities:
+
+* Clinical Sign
+* Active Ingredient
+* Commercial Product
+* Manufacturer
+* Species
+
+Relationship entity:
+
+* Pharmacological Use
+
+The application follows an Object-Oriented approach where each entity is represented by its own Python class, responsible for maintaining both its internal state and its relationships with other entities.
+
+---
+
+# Planned Search Flow
+
+Users will be able to search starting from multiple entry points:
 
 Clinical Sign
 
 ↓
 
-Associated Active Ingredients
+Active Ingredient
 
 ↓
 
-Commercial Product Selection
+Commercial Product
 
 ↓
 
-Pharmacological Information
+Manufacturer
 
-- Species
-- Dosage
-- Administration Route
-- Administration Interval
-- Indications
-- Contraindications
-- Warnings
-- Adverse Reactions
+↓
+
+Species-specific pharmacological information
 
 ↓
 
 Dosage Calculator
 
----
-
-## Planned Technologies
-
-- Python
-- SQL
-- Relational Database
-- Git & GitHub
-- Obsidian (technical documentation)
+The architecture allows navigation in both directions between related entities.
 
 ---
 
-## Current Stage
+# Technologies
 
-VetBridge is currently in the Conceptual Database Modeling phase.
+Current
 
-The conceptual model is being refined before the transition to logical modeling and software implementation.
+* Python
+* Git
+* GitHub
+* Database Modeling
+* Software Engineering
 
-The next milestones are:
+Upcoming
 
-- Final Conceptual Entity-Relationship Model (ERD)
-- Logical Database Model
-- Terminal prototype (Python)
-- SQL implementation
-- Pharmacological database construction
-- Desktop application
+* SQLite / PostgreSQL
+* SQL
+* Search Algorithms
+* Data Persistence
 
 ---
 
-## Repository Structure
+# Repository Structure
 
 docs/
-    Requirements
-    Business Rules
-    Database Modeling
-    Architecture Decisions
+
+* Requirements
+* Architecture
+* Database Modeling
+* Design Decisions
 
 src/
-    Python implementation
 
-obsidian/
-    Technical documentation
-    Conceptual modeling
-    Knowledge base
+* Domain Classes
+* Future Database Layer
+* Future Search Engine
 
 ---
 
-## Educational Purpose
+# Educational Purpose
 
-VetBridge is an educational software engineering project developed to consolidate concepts learned throughout an undergraduate degree in Systems Analysis and Development.
+VetBridge is developed as an educational project intended to practice:
 
-Its primary objective is to integrate software analysis, database modeling and programming into a single long-term project.
+* Object-Oriented Programming
+* Software Architecture
+* Database Modeling
+* Relational Databases
+* Python Development
+* Git Workflow
 
-The software is intended exclusively for educational purposes.
-
-It does not replace professional veterinary judgment, establish diagnoses or recommend treatment protocols.
+The project does not replace professional veterinary judgement and should not be used as a diagnostic or therapeutic recommendation system.
 
 ---
 
-## Author
+# Author
 
 Paulo Henrique Retamero Baptista
-Upcoming milestones include:
-
-* Conceptual database model (ERD)
-* Logical database model
-* SQL implementation
-* Search engine development
-* Pharmacological database construction
-
----
-
-## Repository Structure
-
-```text
-docs/
-    Requirements
-    Database Modeling
-    Architecture Decisions
-
-src/
-    Application source code
-```
-
-## Educational Purpose
-
-VetBridge is an educational project developed to practice software development, database modeling and system design concepts.
-
-The project aims to organize veterinary pharmacological information and provide dosage calculation tools as a learning exercise.
-
-This software is not intended to replace professional veterinary judgment, provide diagnoses or recommend treatment protocols.
-
-## Author
-
-Paulo Henrique Retamero Baptista
-
