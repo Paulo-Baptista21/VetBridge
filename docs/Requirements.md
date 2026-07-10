@@ -60,9 +60,9 @@ Target users:
 
 | Code | Requirement                                                                                                    |
 | ---- | -------------------------------------------------------------------------------------------------------------- |
-| FR01 | The system shall allow users to search for a single clinical sign.                                             |
-| FR02 | The system shall display active ingredients associated with the searched clinical sign.                        |
-| FR03 | The system shall display available commercial formulations related to the selected active ingredient.          |
+| FR01 | The system shall allow users to search for a single input.                                                     |
+| FR02 | The system shall display entities associated with the searched input.                                          |
+| FR03 | The system shall allow navigation between associated entities.                                                 |
 | FR04 | The system shall display dosage information for each commercial formulation according to the target species.   |
 | FR05 | The system shall calculate medication dosage based on patient weight, prescribed dose, and drug concentration. |
 | FR06 | The system shall allow users to return to the main menu after completing a consultation.                       |
@@ -85,10 +85,10 @@ Target users:
 
 | Code | Rule                                                                                                       |
 | ---- | ---------------------------------------------------------------------------------------------------------- |
-| BR01 | Only one clinical sign may be searched per consultation.                                                   |
+| BR01 | Only one search input may be used per consultation.                                                        |
 | BR02 | Clinical signs must originate from official medication package inserts.                                    |
 | BR03 | Only officially registered veterinary medications may be included in the database.                         |
-| BR04 | Each commercial formulation shall be associated with a single active ingredient.                           |
+| BR04 | Each commercial formulation shall be associated with active ingredient.                                    |
 | BR05 | Pharmacological information displayed shall correspond exclusively to the medication selected by the user. |
 
 ---
