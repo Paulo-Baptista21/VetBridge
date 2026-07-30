@@ -14,30 +14,41 @@ VetBridge is being developed primarily to practice software requirements, domain
 
 VetBridge is an informational consultation-support project. It does not:
 
-perform diagnoses;
+- perform diagnoses;
 
-recommend therapeutic protocols;
+- recommend therapeutic protocols;
 
-interpret laboratory or imaging examinations;
+- interpret laboratory or imaging examinations;
 
-recommend medication combinations;
+- recommend medication combinations;
 
-replace professional veterinary judgment.
+- replace professional veterinary judgment.
 
 The project is intended to organize reference information and support dosage calculations based on values entered by the user.
 
 ## Planned Consultation Flow:
 
 Clinical Sign
+
     ↓
+    
 Active Ingredients
+
     ↓
+    
 Commercial Names
+
     ↓
+    
 Commercial Presentations
+
     ↓
+
+    
 Species-specific Pharmacological Information
+
     ↓
+    
 Dosage Calculator
 
 Navigation between related domain entities is planned to be bidirectional.
@@ -46,41 +57,37 @@ Navigation between related domain entities is planned to be bidirectional.
 
 Current domain concepts:
 
-Clinical Sign
+- Clinical Sign
 
-Active Ingredient
+- Active Ingredient
 
-Commercial Name
+- Commercial Name
 
-Manufacturer
+- Manufacturer
 
-Commercial Presentation
+- Commercial Presentation
 
-Species
+- Species
 
 Pharmacological Use represents the association between a commercial presentation and a species. This association stores information that may vary according to both, including:
 
-dosage instructions;
+- dosage instructions;
 
-administration route;
+- administration route;
 
-interval;
+- interval;
 
-indications;
+- indications;
 
-contraindications;
+- contraindications;
 
-warnings;
+- warnings;
 
-adverse reactions.
+- adverse reactions.
 
 ## Main Relationships:
 
-Clinical Sign           N:N Active Ingredient
-Active Ingredient       N:N Commercial Name
-Manufacturer            1:N Commercial Name
-Commercial Name         1:N Commercial Presentation
-Commercial Presentation N:N Species
+| Clinical Sign N:N Active Ingredient | Active Ingredient N:N Commercial Name | Manufacturer 1:N Commercial Name | Commercial Name         1:N Commercial Presentation | Commercial Presentation N:N Species |
 
 The N relationship between Commercial Presentation and Species is represented by Pharmacological Use, which contains its own attributes.
 
@@ -88,99 +95,99 @@ The N relationship between Commercial Presentation and Species is represented by
 
 ## Completed:
 
-project objective and scope definition;
+- project objective and scope definition;
 
-functional and non-functional requirements;
+- functional and non-functional requirements;
 
-business rules;
+- business rules;
 
-general consultation flow;
+- general consultation flow;
 
-initial identification of entities, attributes, and relationships;
+- initial identification of entities, attributes, and relationships;
 
-multiple iterations of the conceptual Entity-Relationship Diagram;
+- multiple iterations of the conceptual Entity-Relationship Diagram;
 
-initial dosage calculator prototype in Python;
+- initial dosage calculator prototype in Python;
 
-initial Python domain classes and relationship methods.
+- initial Python domain classes and relationship methods.
 
 ## In Progress:
 
-final validation of the conceptual model;
+- final validation of the conceptual model;
 
-conversion of the conceptual model into a logical relational model;
+- conversion of the conceptual model into a logical relational model;
 
-definition of tables, primary keys, foreign keys, and normalization;
+- definition of tables, primary keys, foreign keys, and normalization;
 
-expansion of the Object-Oriented domain model;
+- expansion of the Object-Oriented domain model;
 
-SQL and MySQL study applied to the project;
+- SQL and MySQL study applied to the project;
 
-initial database implementation and query prototyping.
+- initial database implementation and query prototyping.
 
 ## Planned:
 
-population of the pharmacological database using official package inserts;
+- population of the pharmacological database using official package inserts;
 
-search and navigation between related entities;
+- search and navigation between related entities;
 
-presentation of species-specific pharmacological information;
+- presentation of species-specific pharmacological information;
 
-integration of the dosage calculator with the application;
+- integration of the dosage calculator with the application;
 
-data persistence;
+- data persistence;
 
-interface, tests, and final documentation.
+- interface, tests, and final documentation.
 
 ## Dosage Calculator:
 
 The initial prototype supports the following calculation:
 
-Total dose (mg) = Weight (kg) × Prescribed dose (mg/kg)
+- Total dose (mg) = Weight (kg) × Prescribed dose (mg/kg)
 
-Volume (mL) = Total dose (mg) ÷ Concentration (mg/mL)
+- Volume (mL) = Total dose (mg) ÷ Concentration (mg/mL)
 
 A second calculation flow is planned for doses expressed directly in mL/kg.
 
 ## Technologies and Concepts Currently Applied:
 
-Python
+- Python
 
-Object-Oriented Programming
+- Object-Oriented Programming
 
-Software Requirements
+- Software Requirements
 
-Domain Modeling
+- Domain Modeling
 
-Entity-Relationship Modeling
+- Entity-Relationship Modeling
 
-Relational Database Fundamentals
+- Relational Database Fundamentals
 
-Git
+- Git
 
-GitHub
+- GitHub
 
 ## Currently Being Introduced:
 
-SQL
+- SQL
 
-MySQL
+- MySQL
 
-Logical Database Modeling
+- Logical Database Modeling
 
-Data Persistence
+- Data Persistence
 
 ## Documentation:
 
 The repository documentation covers:
 
-software requirements;
+- software requirements;
 
-domain and Object-Oriented architecture;
+- domain and Object-Oriented architecture;
 
-database modeling;
+- database modeling;
 
-architectural decisions.
+- architectural decisions.
 
 The documentation is updated as the project evolves.
 
