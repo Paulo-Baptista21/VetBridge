@@ -11,6 +11,7 @@ Current entities:
 * Commercial Product
 * Manufacturer
 * Species
+* Commercial Presentation
 
 Relationship entity:
 
@@ -56,9 +57,17 @@ Manufacturer
 
 Commercial Product
 
-(N:N)
+(1:N)
 
 ---
+
+Commercial Name
+
+↔
+
+Commercial Presentation
+
+(1:N)
 
 ## Next Steps
 
