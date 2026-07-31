@@ -203,10 +203,13 @@ The intended Object-Oriented design uses bidirectional relationships.
 
 Example:
 
-```text
 Clinical Sign
+
     ↕
-Active Ingredient* Managing its own relationships.
+    
+Active Ingredient
+
+* Managing its own relationships.
 * Providing methods that modify only its own internal state.
 
 Relationships are implemented through object associations.
