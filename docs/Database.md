@@ -117,11 +117,11 @@ In the logical database model, the N:N relationships will be converted into asso
 
 The relationship between Commercial Presentation and Species will be represented by a table such as:
 
-```text
 PHARMACOLOGICAL_USE
+
 ↔
 
-Commercial Product
+Commercial Presentation
 
 (1:N)
 
@@ -134,6 +134,8 @@ Commercial Name
 Commercial Presentation
 
 (1:N)
+
+---
 
 ## Next Steps
 
