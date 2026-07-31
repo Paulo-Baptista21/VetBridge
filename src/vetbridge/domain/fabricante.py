@@ -1,9 +1,8 @@
 class Fabricante:
 
-def __init__(self, id, nome):
+    def __init__(self, id, nome):
         self.id = id
         self.nome = nome
-
         self.nomes_comerciais = []
 
     def associar_nome_comercial(self, nome_comercial):
