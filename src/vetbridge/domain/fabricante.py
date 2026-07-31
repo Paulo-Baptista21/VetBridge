@@ -1,4 +1,4 @@
-class fabricante:
+class Fabricante:
 
 def __init__(self, id, nome):
         self.id = id
