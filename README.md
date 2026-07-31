@@ -89,7 +89,15 @@ Pharmacological Use represents the association between a commercial presentation
 
 | Clinical Sign N:N Active Ingredient | Active Ingredient N:N Commercial Name | Manufacturer 1:N Commercial Name | Commercial Name         1:N Commercial Presentation | Commercial Presentation N:N Species |
 
-The N relationship between Commercial Presentation and Species is represented by Pharmacological Use, which contains its own attributes.
+The N:N relationship between Commercial Presentation and Species is represented by Pharmacological Use, which contains its own attributes.
+
+## Entity-Relationship Diagram
+
+The current conceptual Entity-Relationship Diagram presents the main domain concepts, their attributes, cardinalities, and the associative relationship represented by Pharmacological Use.
+
+[![VetBridge Entity-Relationship Diagram](docs/diagrams/vetbridge-erd-current.png)](docs/diagrams/vetbridge-erd-current.pdf)
+
+[Open the full Entity-Relationship Diagram in PDF](docs/diagrams/vetbridge-erd-current.pdf)
 
 ## Current Development Stage
 
