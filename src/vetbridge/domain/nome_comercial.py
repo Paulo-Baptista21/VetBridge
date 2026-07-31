@@ -1,3 +1,5 @@
+class NomeComercial:
+
 def __init__(self, id, nome, fabricante):
         self.id = id
         self.nome = nome
