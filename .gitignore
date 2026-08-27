@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Variáveis de ambiente e credenciais
+.env
+.env.*
+!.env.example
+
+# Editores e sistema operacional
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Arquivos temporários
+*.tmp
+*.bak
+~$*
+
+# Bancos locais e instaladores
+*.db
+*.sqlite
+*.sqlite3
+*.exe
+*.zip

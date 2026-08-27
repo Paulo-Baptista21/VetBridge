@@ -1,0 +1,1 @@
+Este projeto possui apenas fins acadêmicos. A ideia da ferramenta é voltada ao apoio de consulta de informações. Ela não visa substituir julgamento clínico ou toma decisões. A responsabilidade pela conduta permanece integralmente com o profissional.
