@@ -102,3 +102,7 @@ Check-points da construção do projeto.
 - [ ]  Interface
 - [ ]  Testes
 - [ ]  Documentação final
+
+## Padronização do repositório
+
+- Normalizar o idioma, os nomes e a organização dos arquivos para apresentação do VetBridge como portfólio.
