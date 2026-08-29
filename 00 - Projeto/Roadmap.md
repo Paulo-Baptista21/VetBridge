@@ -105,4 +105,4 @@ Check-points da construção do projeto.
 
 ## Padronização do repositório
 
-- Normalizar o idioma, os nomes e a organização dos arquivos para apresentação do VetBridge como portfólio.
+- [ ] Normalizar o idioma, os nomes e a organização dos arquivos para apresentação do VetBridge como portfólio.
