@@ -26,4 +26,20 @@ Apresentação Comercial escolhida
 
 ↓
 
-Informações farmacológicas + Calculadora
+Espécie escolhida
+
+↓
+
+Uso Farmacológico correspondente
+
+↓
+
+Regimes Posológicos disponíveis
+
+↓
+
+Regime Posológico escolhido
+
+↓
+
+Informações farmacológicas + Calculadora de dose

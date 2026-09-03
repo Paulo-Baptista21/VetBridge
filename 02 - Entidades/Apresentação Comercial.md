@@ -1,38 +1,32 @@
-
-
 ## Definição
 
-Registro que representa uma apresentação específica vinculada a um nome comercial.
-
-No escopo atual, sua finalidade é permitir a consulta textual da composição e da concentração informadas na bula oficial, sem estruturar separadamente substâncias, quantidades ou unidades.
+Forma específica pela qual um nome comercial é disponibilizado no mercado, conforme descrita na bula oficial.
 
 ## Atributos
 
-- Composição
+- Composição textual
     
 
 ## Relacionamentos
 
-- Pertence obrigatoriamente a um [[Nome Comercial]];
+- Pertence a um [[Nome Comercial]]
     
-- Possui informações de uso específicas para uma ou mais [[Espécie|Espécies]] por meio de Uso Farmacológico.
-    
-
-## Exemplo
-
-Um mesmo nome comercial pode possuir apresentações com composições diferentes:
-
-- Nome Comercial X — `Cada comprimido contém 150 mg do princípio ativo`;
-    
-- Nome Comercial X — `Cada comprimido contém 600 mg do princípio ativo`.
+- Possui um ou mais [[Uso Farmacológico|Usos Farmacológicos]], conforme as espécies atendidas
     
 
-As descrições completas serão armazenadas textualmente no atributo `composicao`.
+## Exemplos
+
+Um mesmo nome comercial pode possuir diferentes apresentações, descritas textualmente:
+
+- Produto X — gotas — 20%
+    
+- Produto X — comprimidos — 20 mg por comprimido
+    
+- Produto X — solução injetável — 10 mg/mL
+    
 
 ## Observações
 
-A composição poderá incluir concentração, forma de apresentação ou outras informações necessárias à leitura veterinária.
+A composição preserva em texto a forma farmacêutica, a concentração e outras informações relevantes da apresentação conforme a bula oficial.
 
-Essas informações não serão utilizadas em cálculos, comparações numéricas, filtros por concentração ou conversões para comprimidos e mililitros.
-
-A calculadora utilizará exclusivamente o peso do animal e a dose em mg/kg armazenada no respectivo Uso Farmacológico.
+A concentração não deve ser confundida com a dose administrada ao paciente. A dose em mg/kg pertence ao [[Regime Posológico]].

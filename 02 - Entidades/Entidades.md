@@ -10,3 +10,7 @@
 - [[Fabricante]]
 
 - [[Apresentação Comercial]]
+
+- [[Uso Farmacológico]]
+
+- [[Regime Posológico]]

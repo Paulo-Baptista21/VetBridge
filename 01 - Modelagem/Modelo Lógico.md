@@ -176,11 +176,11 @@ Cada apresentação comercial pertence obrigatoriamente a um único nome comerci
 
 ### apresentacao_comercial
 
-|Coluna|Tipo|Restrição|Função|
-|---|---|---|---|
-|`id`|`INT`|`PRIMARY KEY`, `AUTO_INCREMENT`, `NOT NULL`|Identifica unicamente a apresentação comercial|
-|`nome_comercial_id`|`INT`|`FOREIGN KEY`, `NOT NULL`|Identifica o nome comercial ao qual a apresentação pertence|
-|`composicao`|`TEXT`|`NOT NULL`|Armazena textualmente a composição e a concentração da apresentação comercial|
+| Coluna              | Tipo   | Restrição                                   | Função                                                                        |
+| ------------------- | ------ | ------------------------------------------- | ----------------------------------------------------------------------------- |
+| `id`                | `INT`  | `PRIMARY KEY`, `AUTO_INCREMENT`, `NOT NULL` | Identifica unicamente a apresentação comercial                                |
+| `nome_comercial_id` | `INT`  | `FOREIGN KEY`, `NOT NULL`                   | Identifica o nome comercial ao qual a apresentação pertence                   |
+| `composicao`        | `TEXT` | `NOT NULL`                                  | Armazena textualmente a composição e a concentração da apresentação comercial |
 
 Referência:
 
@@ -244,23 +244,18 @@ A tabela não possuirá um `id` próprio. A combinação das duas chaves estrang
 
 O relacionamento entre Apresentação Comercial e Espécie será representado pela tabela associativa `uso_farmacologico`.
 
-Uso Farmacológico não constitui uma entidade independente do domínio, mas seus registros possuirão identidade técnica própria porque contêm atributos e serão manipulados individualmente pela aplicação.
+Uso Farmacológico não constitui uma entidade independente do domínio, mas seus registros possuem identidade técnica própria porque contêm atributos e são manipulados individualmente pela aplicação.
 
 ### uso_farmacologico
 
-| Coluna                      | Tipo            | Restrição                                   | Função                                                                 |
-| --------------------------- | --------------- | ------------------------------------------- | ---------------------------------------------------------------------- |
-| `id`                        | `INT`           | `PRIMARY KEY`, `AUTO_INCREMENT`, `NOT NULL` | Identifica unicamente o registro de uso farmacológico                  |
-| `apresentacao_comercial_id` | `INT`           | `FOREIGN KEY`, `NOT NULL`                   | Identifica a apresentação comercial correspondente                     |
-| `especie_id`                | `INT`           | `FOREIGN KEY`, `NOT NULL`                   | Identifica a espécie correspondente                                    |
-| `dose_mg_por_kg`            | `DECIMAL(10,4)` | `NOT NULL`, `CHECK (dose_mg_por_kg > 0)`    | Armazena numericamente a dose em mg/kg utilizada pela calculadora      |
-| `posologia`                 | `TEXT`          | `NOT NULL`                                  | Armazena as orientações posológicas complementares                     |
-| `via_administracao`         | `VARCHAR(100)`  | `NOT NULL`                                  | Armazena a via de administração                                        |
-| `intervalo`                 | `VARCHAR(100)`  | `NOT NULL`                                  | Armazena o intervalo ou a frequência de administração                  |
-| `indicacoes`                | `TEXT`          | `NOT NULL`                                  | Armazena as indicações farmacológicas                                  |
-| `contraindicacoes`          | `TEXT`          | `NOT NULL`                                  | Armazena as contraindicações ou a declaração explícita de sua ausência |
-| `advertencias`              | `TEXT`          | aceita `NULL`                               | Armazena advertências de uso, quando disponíveis                       |
-| `reacoes_adversas`          | `TEXT`          | aceita `NULL`                               | Armazena reações adversas, quando disponíveis                          |
+|Coluna|Tipo|Restrição|Função|
+|---|---|---|---|
+|`id`|`INT`|`PRIMARY KEY`, `AUTO_INCREMENT`, `NOT NULL`|Identifica unicamente o uso farmacológico|
+|`apresentacao_comercial_id`|`INT`|`FOREIGN KEY`, `NOT NULL`|Identifica a apresentação comercial|
+|`especie_id`|`INT`|`FOREIGN KEY`, `NOT NULL`|Identifica a espécie|
+|`contraindicacoes`|`TEXT`|aceita `NULL`|Armazena contraindicações quando explicitamente disponíveis|
+|`advertencias`|`TEXT`|aceita `NULL`|Armazena advertências de uso|
+|`reacoes_adversas`|`TEXT`|aceita `NULL`|Armazena reações adversas|
 
 Referências:
 
@@ -272,13 +267,37 @@ Restrição de unicidade:
 
 `UNIQUE (apresentacao_comercial_id, especie_id)`
 
-Cada combinação entre apresentação comercial e espécie poderá possuir apenas um registro de uso farmacológico.
+Cada combinação entre apresentação comercial e espécie pode possuir apenas um registro de uso farmacológico.
 
-O identificador `id` será a chave primária simples da tabela. A combinação das duas chaves estrangeiras permanecerá única para impedir a duplicação do mesmo uso farmacológico.
+As duas chaves estrangeiras utilizam `ON DELETE RESTRICT`, impedindo a exclusão da apresentação ou da espécie enquanto existir um uso dependente, e `ON UPDATE CASCADE`, preservando as referências caso algum identificador seja alterado.
 
-A calculadora utilizará:
+## Uso Farmacológico 1:N Regime Posológico
 
-`dose calculada em mg = peso em kg × uso_farmacologico.dose_mg_por_kg`
+Um Uso Farmacológico pode possuir um ou mais Regimes Posológicos.
+
+Cada Regime Posológico pertence a um único Uso Farmacológico e representa um esquema terapêutico calculável.
+
+### regime_posologico
+
+|Coluna|Tipo|Restrição|Função|
+|---|---|---|---|
+|`id`|`INT`|`PRIMARY KEY`, `AUTO_INCREMENT`, `NOT NULL`|Identifica unicamente o regime|
+|`uso_farmacologico_id`|`INT`|`FOREIGN KEY`, `NOT NULL`|Identifica o uso farmacológico ao qual o regime pertence|
+|`indicacao`|`VARCHAR(255)`|`NOT NULL`|Armazena a indicação do regime|
+|`dose_mg_por_kg`|`DECIMAL(10,4)`|`NOT NULL`, `CHECK (dose_mg_por_kg > 0)`|Armazena a dose utilizada pela calculadora|
+|`via_administracao`|`VARCHAR(100)`|`NOT NULL`|Armazena a via de administração|
+|`intervalo`|`VARCHAR(100)`|`NOT NULL`|Armazena o intervalo ou a frequência|
+|`posologia`|`TEXT`|`NOT NULL`|Armazena as orientações posológicas complementares|
+
+Referência:
+
+`regime_posologico.uso_farmacologico_id → uso_farmacologico.id`
+
+Essa chave estrangeira utiliza `ON DELETE CASCADE`, pois um regime não possui significado sem seu Uso Farmacológico, e `ON UPDATE CASCADE`, preservando a referência caso o identificador seja alterado.
+
+A calculadora utiliza o regime selecionado:
+
+`dose calculada em mg = peso em kg × regime_posologico.dose_mg_por_kg`
 
 ## Validação e normalização
 

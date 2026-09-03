@@ -1,147 +1,105 @@
-# Database Modeling
+# Database
 
-## Current Stage
+## Current State
 
-The conceptual database model is currently in its final validation stage.
+The VetBridge relational model is implemented in MySQL for the current project scope.
 
-The logical database model is in progress and will convert the domain concepts and relationships into relational tables, primary keys, foreign keys, and associative tables.
+The database structure includes domain tables, associative tables, foreign keys, uniqueness constraints, referential actions, and validation of positive dosage values.
 
----
+The current structure is exported to [`schema.sql`](https://chatgpt.com/06%20-%20Banco%20de%20Dados/schema.sql).
 
-## Domain Concepts
+## Main Tables
 
-The current conceptual model contains the following domain concepts:
+- `fabricante`
+    
+- `nome_comercial`
+    
+- `apresentacao_comercial`
+    
+- `principio_ativo`
+    
+- `sinal_clinico`
+    
+- `especie`
+    
+- `uso_farmacologico`
+    
+- `regime_posologico`
+    
 
-- Clinical Sign
-- Active Ingredient
-- Commercial Name
-- Manufacturer
-- Commercial Presentation
-- Species
+## Associative Tables
 
-### Pharmacological Use
+- `principio_ativo_nome_comercial`
+    
+- `sinal_clinico_principio_ativo`
+    
 
-Pharmacological Use does not represent an independent domain entity.
+These tables use composite primary keys to prevent duplicate relationships.
 
-It represents the relationship between a specific Commercial Presentation and a Species.
+## Core Relationships
 
-Because this relationship contains its own attributes, it may be represented:
+### Manufacturer and Commercial Name
 
-- as an association class in the Object-Oriented model;
-- as an associative table in the logical database model.
+A manufacturer may produce multiple commercial names.
 
----
+Each commercial name belongs to one manufacturer.
 
-## Relationship Model
+### Commercial Name and Commercial Presentation
 
-### Clinical Sign ↔ Active Ingredient
+A commercial name may have multiple commercial presentations.
 
-**Cardinality:** N:N
+Each commercial presentation belongs to one commercial name and stores its composition as text.
 
-A Clinical Sign may be associated with multiple Active Ingredients.
+### Active Ingredient and Commercial Name
 
-An Active Ingredient may be associated with multiple Clinical Signs.
+Active ingredients and commercial names have an N:N relationship represented by `principio_ativo_nome_comercial`.
 
----
+### Clinical Sign and Active Ingredient
 
-### Active Ingredient ↔ Commercial Name
+Clinical signs and active ingredients have an N:N relationship represented by `sinal_clinico_principio_ativo`.
 
-**Cardinality:** N:N
+### Commercial Presentation and Species
 
-An Active Ingredient may be present in multiple Commercial Names.
+A commercial presentation may be used by multiple species, and a species may have multiple commercial presentations.
 
-A Commercial Name may contain one or more Active Ingredients.
+This relationship is represented by `uso_farmacologico`.
 
----
+Each presentation-and-species combination may have only one pharmacological-use record.
 
-### Manufacturer ↔ Commercial Name
+### Pharmacological Use and Dosage Regimen
 
-**Cardinality:** 1:N
+A pharmacological use may have multiple dosage regimens.
 
-A Manufacturer may produce multiple Commercial Names.
+Each `regime_posologico` stores:
 
-Each registered Commercial Name belongs to one Manufacturer.
-
-Different manufacturers may produce products containing the same Active Ingredient, but each Commercial Name remains associated with its own Manufacturer.
-
----
-
-### Commercial Name ↔ Commercial Presentation
-
-**Cardinality:** 1:N
-
-A Commercial Name may have one or more Commercial Presentations.
-
-Each Commercial Presentation belongs to one Commercial Name.
-
-A Commercial Presentation is defined, at minimum, by:
-
-- pharmaceutical form;
-- concentration.
-
----
-
-### Commercial Presentation ↔ Species
-
-**Cardinality:** N:N
-
-A Commercial Presentation may be indicated for one or more Species.
-
-A Species may be served by multiple Commercial Presentations.
-
-This relationship is represented by Pharmacological Use.
-
----
-
-## Pharmacological Use Attributes
-
-The Pharmacological Use relationship stores information that depends on both the Commercial Presentation and the Species, including:
-
-- dosage instructions;
+- indication;
+    
+- dose in mg/kg;
+    
 - administration route;
+    
 - administration interval;
-- indications;
-- contraindications;
-- warnings;
-- adverse reactions.
+    
+- complementary dosage instructions.
+    
 
-These attributes do not belong exclusively to the Commercial Presentation or exclusively to the Species.
+This separation allows one presentation to retain multiple calculable doses for the same species without duplicating its general safety information.
 
-They describe the use of a specific Commercial Presentation in a specific Species.
+## Dosage Calculation
 
----
+After a dosage regimen is selected, the total dose is calculated as:
 
-## Planned Logical Representation
+```text
+total dose (mg) = body weight (kg) × dose (mg/kg)
+```
 
-In the logical database model, the N:N relationships will be converted into associative tables.
+The database requires `dose_mg_por_kg` to be greater than zero.
 
-The relationship between Commercial Presentation and Species will be represented by a table such as:
+## Referential Integrity
 
-Pharmacological Use
+Foreign keys use `RESTRICT` when dependent records with their own content must be protected from accidental deletion.
 
-↔
+`CASCADE` is used for pure associations and records that have no meaning without their parent.
 
-Commercial Presentation
-
-(1:N)
-
----
-
-Commercial Name
-
-↔
-
-Commercial Presentation
-
-(1:N)
-
----
-
-## Next Steps
-
-* Logical Model
-* Primary Keys
-* Foreign Keys
-* Normalization
-* SQL Implementation
+`ON UPDATE CASCADE` keeps foreign-key references synchronized if a referenced identifier is changed.
 

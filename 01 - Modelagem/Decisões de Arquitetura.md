@@ -2,23 +2,43 @@
 
 Durante a Modelagem Conceitual, concluiu-se que Uso Farmacológico não representa uma entidade independente do domínio.
 
-Ele corresponde ao relacionamento entre **Apresentação Comercial** e **Espécie**, concentrando informações como:
+Ele corresponde ao relacionamento entre **Apresentação Comercial** e **Espécie**. Na modelagem lógica, existe um único registro de Uso Farmacológico para cada combinação entre apresentação e espécie.
+
+O Uso Farmacológico concentra informações gerais de segurança que variam conforme essa combinação:
+
+- Contraindicações
+    
+- Advertências
+    
+- Reações adversas
+    
+
+Os dados que podem formar mais de um esquema terapêutico para a mesma apresentação e espécie foram separados em **Regime Posológico**:
 
 - Posologia
+    
 - Via de administração
+    
 - Intervalo
-- Indicações
-- Contraindicações
-- Advertências
-- Reações adversas
+    
+- Indicação
+    
+- Dose em mg/kg
+    
 
-Essas informações podem variar conforme a apresentação comercial e a espécie atendida.
+Essa separação permite manter um único Uso Farmacológico sem limitar cada apresentação e espécie a uma única dose calculável.
 
+## Regime Posológico
+
+Um Uso Farmacológico pode possuir um ou mais Regimes Posológicos.
+
+Cada regime representa uma combinação calculável de indicação, dose em mg/kg, via de administração, intervalo e posologia textual. A calculadora utiliza a dose do regime selecionado:
+
+`dose total (mg) = peso (kg) × dose do regime (mg/kg)`
 
 ## Representação orientada a objetos
 
-Na implementação em Python, Uso Farmacológico poderá ser representado por uma classe de associação, pois o relacionamento possui atributos próprios.
-
+Na implementação em Python, Uso Farmacológico poderá ser representado por uma classe de associação, pois o relacionamento possui atributos próprios. Os regimes poderão ser representados como objetos relacionados a essa classe.
 
 ## Representação lógica
 
@@ -29,9 +49,23 @@ Na Modelagem Lógica, esse relacionamento deverá ser convertido em uma tabela a
 Ela possuirá referências para:
 
 - `APRESENTACAO_COMERCIAL`
+    
 - `ESPECIE`
+    
 
-além dos atributos específicos do uso farmacológico.
+além dos atributos gerais de segurança do uso farmacológico.
+
+A tabela `REGIME_POSOLOGICO` possuirá uma referência para `USO_FARMACOLOGICO` e armazenará:
+
+- `indicacao`
+    
+- `dose_mg_por_kg`
+    
+- `via_administracao`
+    
+- `intervalo`
+    
+- `posologia`
 
 
 ## Estratégia de geração de identificadores
@@ -100,6 +134,16 @@ A regra será aplicada a:
 Quando uma entidade participante for excluída, suas linhas de associação serão removidas automaticamente. A exclusão ficará restrita aos vínculos dependentes e não excluirá as demais entidades relacionadas.
 
 Essa política é adequada porque as linhas dessas tabelas não possuem existência ou atributos próprios fora da associação representada.
+
+### Exclusão de Regimes Posológicos
+
+A chave estrangeira:
+
+`regime_posologico.uso_farmacologico_id`
+
+utilizará `ON DELETE CASCADE`.
+
+Um Regime Posológico não possui significado independente do Uso Farmacológico ao qual pertence. Portanto, a exclusão de um Uso Farmacológico deverá remover automaticamente todos os seus regimes.
 
 ### Atualização de identificadores
 
@@ -189,133 +233,105 @@ A apresentação comercial permanece relevante para consulta, mas sua concentra�
 Essas funcionalidades somente serão consideradas como refatorações futuras caso surja uma necessidade concreta.
 
 
-## Armazenamento numérico da dose
+## Armazenamento e validação da dose
 
 ### Decisão
 
-A tabela `uso_farmacologico` possuirá a coluna:
+A dose em mg/kg será armazenada na tabela `regime_posologico`, por meio da coluna:
 
 `dose_mg_por_kg DECIMAL(10,4) NOT NULL`
 
-Essa coluna armazenará somente o valor numérico da dose expressa em miligramas por quilograma.
+Cada Regime Posológico possuirá sua própria dose calculável.
 
-A coluna `posologia` continuará existindo para registrar orientações textuais complementares, mas não será utilizada como fonte numérica pela calculadora.
-
-### Justificativa
-
-Valores como `15 mg/kg` não devem ser armazenados exclusivamente como texto quando precisam participar de cálculos.
-
-Separar o valor numérico permite:
-
-- calcular diretamente a dose a partir do peso;
-- validar os dados inseridos;
-- ordenar e comparar doses;
-- evitar a interpretação de diferentes formas de escrita;
-- preservar doses fracionárias com precisão decimal.
-
-### Fórmula da calculadora
-
-dose calculada em mg = peso em kg × uso_farmacologico.dose_mg_por_kg
-
-### Limitação de escopo
-
-Nesta etapa, a calculadora trabalhará exclusivamente com doses expressas em mg/kg e produzirá resultados em mg.
-
-Outras unidades poderão ser consideradas como refatoração futura somente se surgir uma necessidade concreta.
-
-## Validação da dose em mg/kg
-
-### Decisão
-
-A coluna `uso_farmacologico.dose_mg_por_kg` utilizará a restrição:
+A coluna utilizará a restrição:
 
 `CHECK (dose_mg_por_kg > 0)`
 
 ### Justificativa
 
-A restrição `NOT NULL` garante a presença de um valor, mas não impede o armazenamento de zero ou de números negativos.
+Uma mesma apresentação comercial pode possuir mais de um esquema terapêutico para a mesma espécie, conforme indicação, dose, via, intervalo ou outras condições de uso.
 
-Como a coluna fornece o valor numérico utilizado pela calculadora, somente doses superiores a zero serão aceitas.
+Manter a dose em `uso_farmacologico` limitaria cada combinação entre apresentação comercial e espécie a um único valor. Separá-la em Regime Posológico permite conservar todas as doses calculáveis sem duplicar as informações gerais de segurança.
 
-A validação será aplicada tanto na inserção quanto na atualização dos registros, impedindo que valores numericamente incompatíveis com a finalidade da coluna integrem a base farmacológica.
+A restrição `NOT NULL` garante a presença da dose, enquanto `CHECK (dose_mg_por_kg > 0)` impede o armazenamento de zero ou valores negativos.
 
-O peso do animal não receberá uma restrição equivalente no banco de dados porque será fornecido durante a execução da calculadora e não será armazenado em `uso_farmacologico`.
+### Fórmula da calculadora
 
-## Obrigatoriedade dos dados de Uso Farmacológico
+`dose calculada em mg = peso em kg × regime_posologico.dose_mg_por_kg`
 
-### Decisão
+O peso do animal será informado durante a execução da calculadora e não será armazenado no banco.
 
-A tabela `uso_farmacologico` utilizará `NOT NULL` nas colunas que identificam o relacionamento, sustentam a calculadora ou representam informações essenciais de uso e segurança.
+## Obrigatoriedade dos dados
 
-Serão obrigatórias:
+### Uso Farmacológico
+
+Serão obrigatórios:
 
 - `id`;
     
 - `apresentacao_comercial_id`;
     
-- `especie_id`;
-    
-- `dose_mg_por_kg`;
-    
-- `posologia`;
-    
-- `via_administracao`;
-    
-- `intervalo`;
-    
-- `indicacoes`;
-    
-- `contraindicacoes`.
+- `especie_id`.
     
 
 Poderão receber `NULL`:
 
+- `contraindicacoes`;
+    
 - `advertencias`;
     
 - `reacoes_adversas`.
     
 
-### Justificativa
+Os campos de segurança poderão permanecer nulos quando a informação não estiver disponível ou não for apresentada separadamente pela fonte consultada.
 
-Um registro de uso farmacológico não possui significado sem a identificação da apresentação comercial e da espécie correspondente.
+### Regime Posológico
 
-A dose em mg/kg é obrigatória porque fornece o valor numérico utilizado pela calculadora. Posologia, via de administração e intervalo são necessários para contextualizar corretamente a administração.
+Serão obrigatórios:
 
-Indicações e contraindicações serão igualmente obrigatórias para preservar a regularidade estrutural e garantir o registro das informações centrais de finalidade e segurança do medicamento.
+- `id`;
+    
+- `uso_farmacologico_id`;
+    
+- `indicacao`;
+    
+- `dose_mg_por_kg`;
+    
+- `via_administracao`;
+    
+- `intervalo`;
+    
+- `posologia`.
+    
 
-Quando a bula declarar que não existem contraindicações específicas, essa ausência deverá ser registrada explicitamente em `contraindicacoes`. O valor `NULL` ficará reservado para campos opcionais cuja informação não esteja disponível ou não seja apresentada separadamente na fonte consultada.
+Um Regime Posológico deve conter todas as informações necessárias para identificar o esquema terapêutico e realizar o cálculo da dose.
 
-Advertências e reações adversas poderão receber `NULL`, pois determinadas bulas podem não apresentar conteúdo específico para essas categorias.
+## Tipos de dados
 
-## Tipos de dados de Uso Farmacológico
-
-### Decisão
-
-As colunas de `uso_farmacologico` utilizarão os seguintes tipos:
+### uso_farmacologico
 
 |Coluna|Tipo|
 |---|---|
 |`id`|`INT`|
 |`apresentacao_comercial_id`|`INT`|
 |`especie_id`|`INT`|
-|`dose_mg_por_kg`|`DECIMAL(10,4)`|
-|`posologia`|`TEXT`|
-|`via_administracao`|`VARCHAR(100)`|
-|`intervalo`|`VARCHAR(100)`|
-|`indicacoes`|`TEXT`|
 |`contraindicacoes`|`TEXT`|
 |`advertencias`|`TEXT`|
 |`reacoes_adversas`|`TEXT`|
 
-### Justificativa
+### regime_posologico
 
-Os identificadores e as chaves estrangeiras utilizarão `INT` para manter compatibilidade com as chaves primárias das tabelas relacionadas.
+|Coluna|Tipo|
+|---|---|
+|`id`|`INT`|
+|`uso_farmacologico_id`|`INT`|
+|`indicacao`|`VARCHAR(255)`|
+|`dose_mg_por_kg`|`DECIMAL(10,4)`|
+|`via_administracao`|`VARCHAR(100)`|
+|`intervalo`|`VARCHAR(100)`|
+|`posologia`|`TEXT`|
 
-A dose em mg/kg utilizará `DECIMAL(10,4)` para preservar valores fracionários com precisão adequada à calculadora.
-
-Posologia, indicações, contraindicações, advertências e reações adversas utilizarão `TEXT` porque podem conter informações extensas provenientes de bulas oficiais.
-
-Via de administração e intervalo utilizarão `VARCHAR(100)` porque possuem conteúdo textual geralmente curto e previsível. O intervalo não será armazenado numericamente, pois pode representar faixas, frequências e orientações condicionais.
+Os identificadores utilizam `INT` para manter compatibilidade entre as chaves. A dose utiliza `DECIMAL(10,4)` para preservar valores fracionários, enquanto os demais tipos refletem a extensão esperada de cada informação textual.
 
 ## Composição da apresentação comercial
 

@@ -56,33 +56,34 @@ Check-points da construção do projeto.
 
 ## **Fase 4 — Modelagem Orientada a Objetos** _(Em andamento)_
 
-- [x] Implementação inicial das primeiras classes 
-- [x] Implementação inicial de métodos de relacionamento 
-- [x] Atualização da classe NomeComercial 
-- [x] Implementação da classe ApresentacaoComercial 
-- [x] Implementação da classe Especie 
+
+- [x] Implementação inicial das primeiras classes
+- [x] Implementação inicial dos métodos de relacionamento
+- [x] Implementação da classe Fabricante
+- [x] Implementação da classe NomeComercial
+- [x] Implementação da classe ApresentacaoComercial
+- [x] Implementação da classe Especie
 - [x] Implementação da classe UsoFarmacologico
-- [x] Implementação completa dos relacionamentos bidirecionais 
-- [ ] Testes de criação e associação dos objetos 
-- [ ] Validação do modelo orientado a objetos
+- [x] Implementação da classe RegimePosologico
+- [x] Sincronização entre Uso Farmacológico e Regime Posológico
+- [x] Implementação dos relacionamentos bidirecionais
+- [x] Verificações de criação, associação e prevenção de duplicações
+- [ ] Validação de dados no modelo orientado a objetos
 
 ---
 
-## Fase 5 — Banco de Dados _(Em andamento)_
+## Fase 5 — Banco de Dados _(Concluída no escopo atual)_
 
-- [x]  Criação preliminar do banco `vetbridge`;
-    
-- [x]  Criação preliminar das tabelas `fabricante` e `especie`;
-    
-- [ ]  Adequação das tabelas preliminares ao modelo lógico vigente;
-    
-- [ ]  Implementação das demais tabelas em MySQL;
-    
-- [ ]  Inserção dos primeiros registros relacionados;
-    
-- [ ]  Testes de integridade e restrições;
-    
-- [ ]  Aplicação das consultas estudadas ao VetBridge.
+
+- [x] Criação do banco `vetbridge`
+- [x] Adequação das tabelas preliminares ao modelo lógico vigente
+- [x] Implementação das tabelas previstas no modelo atual
+- [x] Inserção dos primeiros registros relacionados
+- [x] Testes de integridade e restrições
+- [x] Aplicação das consultas estudadas ao VetBridge
+- [x] Implementação do cálculo de dose por peso
+- [x] Integração do MySQL com o VS Code
+- [x] Exportação da estrutura vigente para `schema.sql`
 
 ---
 

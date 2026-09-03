@@ -78,3 +78,18 @@ Essas alterações preservam o núcleo funcional:
 ![[DER VetBridge V5.pdf]]
 
 As versões anteriores não deverão ser utilizadas como fonte para a criação das tabelas SQL.
+
+## Alteração lógica posterior ao DER V5
+
+Em 03/09/2026, a implementação lógica passou a separar os Regimes Posológicos do Uso Farmacológico:
+
+- permanece um único Uso Farmacológico para cada combinação entre Apresentação Comercial e Espécie;
+    
+- um Uso Farmacológico pode possuir vários Regimes Posológicos;
+    
+- cada Regime Posológico armazena sua própria indicação, dose em mg/kg, via, intervalo e posologia textual;
+    
+- a calculadora utiliza a dose do regime selecionado.
+    
+
+Essa alteração ainda não está representada graficamente no DER V5 e deverá integrar a próxima versão numerada do diagrama.
