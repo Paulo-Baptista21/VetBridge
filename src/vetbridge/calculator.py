@@ -23,5 +23,5 @@ def calculo_dosagem(p, c, d):
 
 dose_total, volume_ml = calculo_dosagem(p, c, d)
 
-print("Dose total:", dose_total, "mg")
+print("Dose total:", f"{dose_total:.2f}", "mg")
 print("Volume:", f"{volume_ml:.2f}", "ml")
